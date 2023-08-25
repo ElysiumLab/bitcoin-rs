@@ -1,0 +1,24 @@
+[package]
+name = "bitcoins"
+version = "0.7.0"
+authors = ["James Prestwich <james@prestwi.ch>"]
+edition = "2018"
+description = "Bitcoin transaction construction in Rust"
+repository = "https://github.com/summa-tx/bitcoins-rs"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+hex = "0.4.2"
+bech32 = "0.7.2"
+base58check = "0.1.0"
+thiserror = "1.0"
+serde = "1.0.105"
+
+coins-core = { version ="0.7.0", path = "../core" }
+coins-bip32 = { version = "0.7.0", path = "../bip32", default-features =  false }
+
+[features]
+default = ["mainnet"]
+mainnet = ["coins-bip32/mainnet"]
+testnet = ["coins-bip32/testnet"]
+signet = ["coins-bip32/testnet"]

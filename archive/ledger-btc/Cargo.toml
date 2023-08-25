@@ -1,0 +1,42 @@
+[package]
+name = "bitcoins-ledger"
+version = "0.7.0"
+authors = ["James Prestwich <james@prestwi.ch>"]
+edition = "2018"
+categories  = ["authentication", "cryptography"]
+keywords = ["ledger", "nano", "bitcoin"]
+repository = "https://github.com/summa-tx/bitcoins-rs"
+license = "MIT OR Apache-2.0"
+description = "Ledger Nano X/S Bitcoin app utilization library"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dev-dependencies]
+futures = "0.3.5"
+serial_test = "0.3.2"
+tokio = {version = "0.2.22", features = ["rt-threaded", "macros"]}
+
+[dependencies]
+thiserror = "1.0.10"
+futures = "0.3.5"
+coins-core = { version = "0.7.0", path = "../core" }
+coins-bip32 = { version = "0.7.0", path = "../bip32",default-features =  false }
+bitcoins = { version = "0.7.0", path = "../bitcoins", default-features =  false }
+coins-ledger = { version = "0.7.0", path = "../ledger", default-features =  false }
+
+# For wasm targets
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2.60"
+wasm-bindgen-futures = "0.4.10"
+js-sys = "0.3.37"
+
+[features]
+default = ["native"]
+native = []
+browser = ["coins-ledger/browser"]
+node = ["coins-ledger/node"]
+
+# https://github.com/rustwasm/wasm-pack/issues/886#issuecomment-667669802
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-Oz", "--enable-mutable-globals"]

@@ -1,0 +1,9 @@
+target/
+Cargo.lock
+
+pkg/
+pkg-node/
+**/*.rs.bk
+tarpaulin-report.html
+node_modules
+.vscode
